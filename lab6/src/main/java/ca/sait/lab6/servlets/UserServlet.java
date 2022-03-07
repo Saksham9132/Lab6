@@ -1,6 +1,7 @@
 
 package ca.sait.lab6.servlets;
 
+import ca.sait.lab6.models.Role;
 import ca.sait.lab6.models.User;
 import ca.sait.lab6.services.UserService;
 import java.io.IOException;
@@ -54,6 +55,55 @@ public class UserServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        UserService service = new UserService();
+         if(request.getParameter("add") != null){
+              String email = request.getParameter("email");
+              boolean isActive= Boolean.parseBoolean(request.getParameter("active"));
+              String firstName = request.getParameter("firstName");
+              String lastName = request.getParameter("lastName");
+              String password = request.getParameter("password");
+              int intRole= Integer.parseInt(request.getParameter("role"));
+              Role rolee = new Role(intRole);
+                      
+            try {
+                boolean users = service.insert(email, isActive , firstName, lastName, password, rolee);
+                request.setAttribute("users", users);
+                
+            } catch (Exception ex) {
+                Logger.getLogger(UserServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
+         }
+         else if(request.getParameter("delete") != null){
+              String email = request.getParameter("email");
+                      
+            try {
+                boolean users = service.delete(email);
+                request.setAttribute("users", users);
+                
+            } catch (Exception ex) {
+                Logger.getLogger(UserServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
+         }
+         else if(request.getParameter("update") != null){
+              String email = request.getParameter("email");
+              boolean isActive= Boolean.parseBoolean(request.getParameter("active"));
+              String firstName = request.getParameter("firstName");
+              String lastName = request.getParameter("lastName");
+              String password = request.getParameter("password");
+              int intRole= Integer.parseInt(request.getParameter("role"));
+              Role rolee = new Role(intRole);
+                      
+            try {
+                boolean users = service.update(email, isActive , firstName, lastName, password, rolee);
+                request.setAttribute("users", users);
+                
+            } catch (Exception ex) {
+                Logger.getLogger(UserServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
+         }
+         
+            getServletContext().getRequestDispatcher("/WEB-INF/message.jsp").forward(request, response);
+         
 
     }
 

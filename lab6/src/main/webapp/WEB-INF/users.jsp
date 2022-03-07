@@ -9,13 +9,18 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     </head>
     <body>
-        <h1>User Management System</h1>
-        <table class="table">
+        <div class =" container">
+            <div class="row">
+                <div class="col">
+                    <h1><center>User Management System</center></h1>
+                          <h3>List of Users</h3>
+                    <table class="table">
             <thead>
                 <tr>
                     <th>E-mail</th>
                     <th>First Name</th>
                     <th>Last Name</th>
+                    <th>Active</th>
                 </tr>
             </thead>
             <tbody>
@@ -24,9 +29,41 @@
                         <td>${user.email}</td>
                         <td>${user.firstName}</td>
                         <td>${user.lastName}</td>
+                        <td>${user.active ? "Y" : "N"}</td>
                     </tr>   
                 </c:forEach>
             </tbody>
         </table>
+            <h3> Add a User</h3>
+            <form action="user" method="post">
+                <p>Email: <input type="text" name="email" id="email"></p>
+                <p>Active: <input type="checkbox" name="active" id="active"></p>
+                <p>First Name: <input type="text" name="firstName" id="firstName"></p>
+                <p>Last Name: <input type="text" name="lastName" id="lastName"></p>
+                <p>Password: <input type="text" name="password" id="password"></p>
+                <p>Role: <input type="text" name="role" id="role" ></p>                
+            <button type="submit" name="add">Add</button>
+        </form>
+            <br><h3>Delete a User</h3>
+            <form action="user" method="post">
+                <p>Email: <input type="text" name="email" id="email"></p>
+            <button type="submit" name="delete">Delete</button>
+        </form>
+            <br><h3>Update existing User</h3>
+            <p>Note: Email address can not be updated.</p>
+              <form action="user" method="post">  
+                <p>Email: <input type="text" name="email" id="email"></p>  
+                <p>Active: <input type="checkbox" name="active" id="active"></p>
+                <p>First Name: <input type="text" name="firstName" id="firstName"></p>
+                <p>Last Name: <input type="text" name="lastName" id="lastName"></p>
+                <p>Password: <input type="text" name="password" id="password"></p>
+                <p>Role: <input type="text" name="role" id="role" ></p>                
+            <button type="submit" name="update">Update</button>
+        </form>             
+                   
+                </div>
+            </div>
+        </div>
+        
     </body>
 </html>
