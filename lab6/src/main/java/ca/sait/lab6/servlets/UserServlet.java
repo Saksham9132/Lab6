@@ -63,10 +63,11 @@ public class UserServlet extends HttpServlet {
               String lastName = request.getParameter("lastName");
               String password = request.getParameter("password");
               int intRole= Integer.parseInt(request.getParameter("role"));
-              Role rolee = new Role(intRole);
+              Role role = new Role();
+              role.setId(intRole);
                       
             try {
-                boolean users = service.insert(email, isActive , firstName, lastName, password, rolee);
+                boolean users = service.insert(email, isActive , firstName, lastName, password, role);
                 request.setAttribute("users", users);
                 
             } catch (Exception ex) {
@@ -91,10 +92,11 @@ public class UserServlet extends HttpServlet {
               String lastName = request.getParameter("lastName");
               String password = request.getParameter("password");
               int intRole= Integer.parseInt(request.getParameter("role"));
-              Role rolee = new Role(intRole);
+              Role role = new Role();
+              role.setId(intRole);
                       
             try {
-                boolean users = service.update(email, isActive , firstName, lastName, password, rolee);
+                boolean users = service.update(email, isActive , firstName, lastName, password, role);
                 request.setAttribute("users", users);
                 
             } catch (Exception ex) {
