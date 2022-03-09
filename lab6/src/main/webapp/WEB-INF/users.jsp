@@ -11,7 +11,7 @@
     <body>
         <div class =" container">
             <div class="row">
-                <div class="col">
+                <div class="col" >
                     <h1><center>User Management System</center></h1>
                           <h3>List of Users</h3>
                     <table class="table">
@@ -21,6 +21,7 @@
                     <th>First Name</th>
                     <th>Last Name</th>
                     <th>Active</th>
+                   
                 </tr>
             </thead>
             <tbody>
@@ -30,40 +31,39 @@
                         <td>${user.firstName}</td>
                         <td>${user.lastName}</td>
                         <td>${user.active ? "Y" : "N"}</td>
+                        <td><form action="user" method="post">
+                                <input type="hidden" name="email" id="email" value=${user.email}>     
+                                <button type="submit" name="delete">Delete</button>
+                            </form>
                     </tr>   
                 </c:forEach>
             </tbody>
         </table>
+                               
             <h3> Add a User</h3>
             <form action="user" method="post">
                 <p>Email: <input type="text" name="email" id="email"></p>
-                <p>Active: <input type="checkbox" name="active" id="active"></p>
                 <p>First Name: <input type="text" name="firstName" id="firstName"></p>
                 <p>Last Name: <input type="text" name="lastName" id="lastName"></p>
-                <p>Password: <input type="text" name="password" id="password"></p>
+                <p>Password: <input type="password" name="password" id="password"></p>
                 <p>Role: <input type="text" name="role" id="role" ></p>                
             <button type="submit" name="add">Add</button>
-        </form>
-            <br><h3>Delete a User</h3>
-            <form action="user" method="post">
-                <p>Email: <input type="text" name="email" id="email"></p>
-            <button type="submit" name="delete">Delete</button>
-        </form>
+            </form>
+                          
             <br><h3>Update existing User</h3>
             <p>Note: Email address can not be updated.</p>
               <form action="user" method="post">  
                 <p>Email: <input type="text" name="email" id="email"></p>  
-                <p>Active: <input type="checkbox" name="active" id="active"></p>
                 <p>First Name: <input type="text" name="firstName" id="firstName"></p>
                 <p>Last Name: <input type="text" name="lastName" id="lastName"></p>
-                <p>Password: <input type="text" name="password" id="password"></p>
+                <p>Password: <input type="password" name="password" id="password"></p>
                 <p>Role: <input type="text" name="role" id="role" ></p>                
             <button type="submit" name="update">Update</button>
         </form>             
-                   
-                </div>
-            </div>
+                         
+          </div>
         </div>
+      </div>           
         
     </body>
 </html>

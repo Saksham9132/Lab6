@@ -41,7 +41,8 @@ public class UserServlet extends HttpServlet {
         } catch (Exception ex) {
             Logger.getLogger(UserServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+  
+
     }
 
     /**
@@ -56,9 +57,10 @@ public class UserServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         UserService service = new UserService();
+        boolean isActive = false;
          if(request.getParameter("add") != null){
               String email = request.getParameter("email");
-              boolean isActive= Boolean.parseBoolean(request.getParameter("active"));
+             
               String firstName = request.getParameter("firstName");
               String lastName = request.getParameter("lastName");
               String password = request.getParameter("password");
@@ -73,8 +75,7 @@ public class UserServlet extends HttpServlet {
             } catch (Exception ex) {
                 Logger.getLogger(UserServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
-         }
-         else if(request.getParameter("delete") != null){
+         }else if(request.getParameter("delete") != null){
               String email = request.getParameter("email");
                       
             try {
@@ -85,15 +86,16 @@ public class UserServlet extends HttpServlet {
                 Logger.getLogger(UserServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
          }
+         
          else if(request.getParameter("update") != null){
               String email = request.getParameter("email");
-              boolean isActive= Boolean.parseBoolean(request.getParameter("active"));
               String firstName = request.getParameter("firstName");
               String lastName = request.getParameter("lastName");
               String password = request.getParameter("password");
               int intRole= Integer.parseInt(request.getParameter("role"));
               Role role = new Role();
               role.setId(intRole);
+              
                       
             try {
                 boolean users = service.update(email, isActive , firstName, lastName, password, role);
@@ -104,8 +106,15 @@ public class UserServlet extends HttpServlet {
             }
          }
          
-            getServletContext().getRequestDispatcher("/WEB-INF/message.jsp").forward(request, response);
-         
+            try {
+            List<User> users = service.getAll();
+          
+            request.setAttribute("users", users);
+            
+            this.getServletContext().getRequestDispatcher("/WEB-INF/users.jsp").forward(request, response);
+        } catch (Exception ex) {
+            Logger.getLogger(UserServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }         
 
     }
 
